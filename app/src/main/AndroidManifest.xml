@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="jp.ac.it_college.std.s14002.android.comikequizgame">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        // ノーアクションバー(上のアプリタイトル消す)
+        <activity android:name=".MainActivity">
+
+            <!-- データを制限する -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".StageSelect" />
+        <activity android:name=".MainGame" />
+        <activity android:name=".RandomActivity" />
+        <activity android:name=".RandomGame" />
+        <activity android:name=".SectionSelect"></activity>
+    </application>
+
+</manifest>

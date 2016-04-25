@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ComikeQuizGame</string>
+    <string name="quiz_game">Quiz Game</string>
+    <string name="normal">NORMAL</string>
+    <string name="random">RANDOM</string>
+    <string name="time_atack">TIME ATTACK</string>
+</resources>
