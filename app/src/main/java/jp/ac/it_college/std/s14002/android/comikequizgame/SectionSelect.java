@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -55,8 +56,22 @@ public class SectionSelect extends AppCompatActivity {
             int viewId = getResources().getIdentifier(resViewName, "id", getPackageName());
             Button button = (Button)findViewById(viewId);
             // Clearの値によって処理を分ける
-                button.setText(String.valueOf(i)); // ボタンテキストに問題番号を表示
+                if (i == 1) {
+                    button.setText("5");
+                } else if (i == 2) {
+                    button.setText("10");
+                } else if (i == 3) {
+                    button.setText("25");
+                } else if (i == 4) {
+                    button.setText("50");
+                } else if (i == 5){
+                    button.setText("75");
+                } else {
+                    button.setText("100");
+            }
+
                 button.setTextColor(0xffff9900); //テキストの色
+                button.setTextSize(50);
                 button.setBackgroundColor(0xffffffff); // ボタンの色
         }
     }
@@ -66,7 +81,7 @@ public class SectionSelect extends AppCompatActivity {
         Intent intent = new Intent(SectionSelect.this, RandomGame.class);
         // 選択されたステージをボタンのテキストから取得
         intent.putExtra("QuestionNo", ((Button) v).getText());
+        Log.e("Log", (String)((Button) v).getText());
         startActivity(intent);
-
     }
 }

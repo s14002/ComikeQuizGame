@@ -121,9 +121,6 @@ public class MainGame extends AppCompatActivity {
             } finally {
                 database.close();
             }
-            if (ret == -1) {
-            } else {
-            }
 
         } else {
             // 不正解の処理

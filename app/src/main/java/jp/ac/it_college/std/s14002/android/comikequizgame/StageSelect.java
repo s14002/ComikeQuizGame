@@ -60,12 +60,14 @@ public class StageSelect extends AppCompatActivity {
                 button.setText(String.valueOf(i)); // ボタンテキストに問題番号を表示
                 button.setTextColor(0xff33ffcc); //テキストの色
                 button.setBackgroundColor(0xffffffff); // ボタンの色
+                button.setTextSize(50); // テキストの文字のサイズ
                 button.setEnabled(true); // ボタン選択可能にする
             } else {
                 // Clearの値が0の場合
                 button.setText(String.valueOf(i)); // ボタンテキストに問題番号を表示
                 button.setTextColor(0xffffffff); // テキストの色
                 button.setBackgroundColor(0xffb7b7b7); // ボタンの色
+                button.setTextSize(50); // テキストの文字のサイズ
                 button.setEnabled(false); // ボタン選択不可にする
 
             }
@@ -78,6 +80,5 @@ public class StageSelect extends AppCompatActivity {
         // 選択されたステージをボタンのテキストから取得
         intent.putExtra("QuestionNo", ((Button) v).getText());
         startActivity(intent);
-
     }
 }
