@@ -14,6 +14,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Created by s14002 on 16/04/24.
  */
@@ -41,7 +44,7 @@ public class RandomGame extends AppCompatActivity {
         soundId[1] = soundPool.load(this, R.raw.se_maoudamashii_onepoint33, 1);
 
 
-        //ステージセレクトActivityから送られてきたデータを取得
+        //セクションセレクトActivityから送られてきたデータを取得
         Intent intent = getIntent();
         QuestionNo = intent.getStringExtra("QuestionNo");
     }
@@ -57,8 +60,10 @@ public class RandomGame extends AppCompatActivity {
         // 問題文セット処理呼び出し
         setQuestion();
     }
-
     private void setQuestion() {
+        int questionMax = 100;
+        ArrayList<Integer> randomArrays = new ArrayList<>();  // 問題数に応じた数だけ配列生成
+
         // 作成したDatabaseHelperクラスに読み取り専用でアクセス
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
@@ -67,7 +72,14 @@ public class RandomGame extends AppCompatActivity {
 
         // SQL文を実行してカーソルを取得
         Cursor cursor = database.rawQuery(sql, null);
+        // カーソルを先頭に移動
         cursor.moveToFirst();
+
+        // TODO ランダム配列(重複なし)
+        for (int i = 1; i <= questionMax; i++) {
+            randomArrays.add(cursor.getCount());
+        }
+        Collections.shuffle(randomArrays);
 
         // データベースから取ってきたデータを変数にセット
         String Kenmei = cursor.getString(cursor.getColumnIndex("Pref")); // 問題文となる都道府県
@@ -131,6 +143,4 @@ public class RandomGame extends AppCompatActivity {
 
         soundPool.release();
     }
-
-
 }
