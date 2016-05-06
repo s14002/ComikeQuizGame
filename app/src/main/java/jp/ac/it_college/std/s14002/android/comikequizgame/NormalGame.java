@@ -9,17 +9,22 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainGame extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class NormalGame extends AppCompatActivity {
     final int SOUND_POOL_MAX = 2;
     String QuestionNo;
     String Seikai;
     // SoundPool(効果音再生)
     SoundPool soundPool;
+//    ArrayList<Integer> questionList = new ArrayList<>();
     private int[] soundId = new int[SOUND_POOL_MAX]; //使う効果音の数だけ配列生成
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -27,7 +32,7 @@ public class MainGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main_game);
+        setContentView(R.layout.activity_normal_game);
 
         // SoundPoolのインスタンス作成
         SoundPool.Builder builder = new SoundPool.Builder();
@@ -51,9 +56,12 @@ public class MainGame extends AppCompatActivity {
         // 画面↑にあるテキストを「クイズNo.　+　問題No で表示
         ((TextView) findViewById(R.id.textNo)).setText("クイズNo." + QuestionNo);
 
+//        setQuestionNumber();
+
         // 問題文セット処理呼び出し
         setQuestion();
     }
+
 
     // 問題文セット処理
     private void setQuestion() {
@@ -85,7 +93,6 @@ public class MainGame extends AppCompatActivity {
         ((Button) findViewById(R.id.button2)).setText(Choice2); // 四択の選択肢2をボタンに表示
         ((Button) findViewById(R.id.button3)).setText(Choice3); // 四択の選択肢3をボタンに表示
         ((Button) findViewById(R.id.button4)).setText(Choice4); // 四択の選択肢4をボタンに表示
-
     }
 
     // onPauseが呼ばれたら効果音を関するものは全て開放する
@@ -118,13 +125,37 @@ public class MainGame extends AppCompatActivity {
             int ret;
             try {
                 ret = database.update("MyTable", values, whereClause, new String[]{String.valueOf((Integer.parseInt(QuestionNo) + 1))});
+                QuestionNo = String.valueOf(Integer.parseInt(QuestionNo) + 1);
             } finally {
                 database.close();
             }
+            Log.e("QuestionNo", QuestionNo);
+            if ((Integer.parseInt(QuestionNo) % 10) == 1) {
+                stageClear();
+            }
+                setQuestion();
 
         } else {
             // 不正解の処理
             soundPool.play(soundId[1], 1.0f, 1.0f, 0, 0, 1.0f); //　不正解音を再生
         }
+    }
+
+
+/*
+    private void setQuestionNumber() {
+        int i = 0;
+        while (i < 100) {
+            i++;
+            questionList.add(i);
+        }
+        Collections.shuffle(questionList);
+    }
+*/
+
+    private void stageClear() {
+        System.out.println("10問目");
+
+        finish();
     }
 }

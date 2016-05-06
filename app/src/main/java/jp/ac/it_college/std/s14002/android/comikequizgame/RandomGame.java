@@ -75,11 +75,11 @@ public class RandomGame extends AppCompatActivity {
         // カーソルを先頭に移動
         cursor.moveToFirst();
 
-        // TODO ランダム配列(重複なし)
+      /*  // TODO ランダム配列(重複なし)
         for (int i = 1; i <= questionMax; i++) {
             randomArrays.add(cursor.getCount());
         }
-        Collections.shuffle(randomArrays);
+        Collections.shuffle(randomArrays);*/
 
         // データベースから取ってきたデータを変数にセット
         String Kenmei = cursor.getString(cursor.getColumnIndex("Pref")); // 問題文となる都道府県

@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".StageSelect" />
-        <activity android:name=".MainGame" />
+        <activity android:name=".NormalGame" />
         <activity android:name=".RandomActivity" />
         <activity android:name=".RandomGame" />
         <activity android:name=".SectionSelect"></activity>
