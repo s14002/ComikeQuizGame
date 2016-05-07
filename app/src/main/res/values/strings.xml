@@ -4,4 +4,6 @@
     <string name="normal">NORMAL</string>
     <string name="random">RANDOM</string>
     <string name="time_atack">TIME ATTACK</string>
+    <string name="count">0</string>
+    <string name="quizNum">クイズNo.</string>
 </resources>

@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         switch (v.getId()) {
             // タッチされたボタンがノーマルの場合
             case R.id.button_normal:
-            // 遷移先のActivityを指定
+                // 遷移先のActivityを指定
                 Intent intent = new Intent(MainActivity.this, StageSelect.class);
                 startActivity(intent);
                 break;
@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
             // タッチされたボタンがタイムアタックの場合
             case R.id.button_time:
-                Toast.makeText(this, "ごめんなさい、タイムアタックは\n未実装です（＞人＜）", Toast.LENGTH_SHORT).show();
+                intent = new Intent(MainActivity.this, TimeAttackSelect.class);
+                startActivity(intent);
                 break;
         }
     }

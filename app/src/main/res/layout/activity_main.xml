@@ -14,9 +14,11 @@
         android:text="@string/quiz_game"
         android:id="@+id/titleText"
         android:gravity="center_vertical|center_horizontal"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textColor="#FFFFFF"
-        android:background="#00E5FF"/>
+        android:background="#00E5FF"
+        android:textStyle="bold"
+        />
 
     <LinearLayout
         android:orientation="vertical"
@@ -32,7 +34,8 @@
             android:layout_weight="1"
             android:background="#1DE9B6"
             android:textColor="#FFFFFF"
-            android:textSize="30dp"
+            android:textSize="30sp"
+            android:textStyle="bold"
             android:onClick="onClick" />
 
         <Button
@@ -43,7 +46,8 @@
             android:id="@+id/button_random"
             android:layout_weight="1"
             android:textColor="#FFFFFF"
-            android:textSize="30dp"
+            android:textSize="30sp"
+            android:textStyle="bold"
             android:onClick="onClick" />
 
         <Button
@@ -54,7 +58,8 @@
             android:layout_weight="1"
             android:background="#F50057"
             android:textColor="#FFFFFF"
-            android:textSize="30dp"
+            android:textSize="30sp"
+            android:textStyle="bold"
             android:onClick="onClick" />
     </LinearLayout>
 

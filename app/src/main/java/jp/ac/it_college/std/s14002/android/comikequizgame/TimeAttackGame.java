@@ -7,29 +7,64 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.SoundPool;
 import android.os.Build;
-import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
-public class NormalGame extends AppCompatActivity {
+public class TimeAttackGame extends AppCompatActivity {
+    private Chronometer chronometer;
+
     final int SOUND_POOL_MAX = 2;
-    String QuestionNo;
+    String QuestionNo = "1";
     String Seikai;
     // SoundPool(効果音再生)
     SoundPool soundPool;
     //    ArrayList<Integer> questionList = new ArrayList<>();
     private int[] soundId = new int[SOUND_POOL_MAX]; //使う効果音の数だけ配列生成
 
+    private int sum = 1;
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_normal_game);
+        setContentView(R.layout.activity_time_attack_game);
+        chronometer = (Chronometer)findViewById(R.id.chronometer);
+
+        findViewById(R.id.attackButton1).setEnabled(false);
+        findViewById(R.id.attackButton2).setEnabled(false);
+        findViewById(R.id.attackButton3).setEnabled(false);
+        findViewById(R.id.attackButton4).setEnabled(false);
+
+        final TextView countDown = (TextView)findViewById(R.id.countDown);
+
+        CountDownTimer countDownTimer = new CountDownTimer(4000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                countDown.setText(String.valueOf(millisUntilFinished / 1000));
+            }
+
+            @Override
+            public void onFinish() {
+                Log.e("log", "start");
+                findViewById(R.id.attackButton1).setEnabled(true);
+                findViewById(R.id.attackButton2).setEnabled(true);
+                findViewById(R.id.attackButton3).setEnabled(true);
+                findViewById(R.id.attackButton4).setEnabled(true);
+                countDown.setVisibility(View.GONE);
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                chronometer.start();
+            }
+        };
+        countDownTimer.start();
 
         // SoundPoolのインスタンス作成
         SoundPool.Builder builder = new SoundPool.Builder();
@@ -40,42 +75,6 @@ public class NormalGame extends AppCompatActivity {
         soundId[1] = soundPool.load(this, R.raw.se_maoudamashii_onepoint33, 1);
 
 
-        //ステージセレクトActivityから送られてきたデータを取得
-        Intent intent = getIntent();
-        QuestionNo = intent.getStringExtra("QuestionNo");
-        Log.e("Log :", String.valueOf(QuestionNo));
-
-        switch (Integer.parseInt(QuestionNo)) {
-            case 1:
-                break;
-            case 2:
-                QuestionNo = String.valueOf(11);
-                break;
-            case 3:
-                QuestionNo = String.valueOf(21);
-                break;
-            case 4:
-                QuestionNo = String.valueOf(31);
-                break;
-            case 5:
-                QuestionNo = String.valueOf(41);
-                break;
-            case 6:
-                QuestionNo = String.valueOf(51);
-                break;
-            case 7:
-                QuestionNo = String.valueOf(61);
-                break;
-            case 8:
-                QuestionNo = String.valueOf(71);
-                break;
-            case 9:
-                QuestionNo = String.valueOf(81);
-                break;
-            case 10:
-                QuestionNo = String.valueOf(91);
-                break;
-        }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -91,7 +90,7 @@ public class NormalGame extends AppCompatActivity {
     // 問題文セット処理
     private void setQuestion() {
         // 画面↑にあるテキストを「クイズNo.　+　問題No で表示
-        ((TextView) findViewById(R.id.textNo)).setText("クイズNo." + QuestionNo);
+        ((TextView) findViewById(R.id.textNo)).setText("クイズNo." + sum);
 
         // 作成したDatabaseHelperクラスに読み取り専用でアクセス
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
@@ -117,10 +116,10 @@ public class NormalGame extends AppCompatActivity {
         database.close();
 
         ((TextView) findViewById(R.id.textQuestion)).setText(Kenmei); // 問題文をテキストに表示
-        ((Button) findViewById(R.id.button1)).setText(Choice1); // 四択の選択肢1をボタンに表示
-        ((Button) findViewById(R.id.button2)).setText(Choice2); // 四択の選択肢2をボタンに表示
-        ((Button) findViewById(R.id.button3)).setText(Choice3); // 四択の選択肢3をボタンに表示
-        ((Button) findViewById(R.id.button4)).setText(Choice4); // 四択の選択肢4をボタンに表示
+        ((Button) findViewById(R.id.attackButton1)).setText(Choice1); // 四択の選択肢1をボタンに表示
+        ((Button) findViewById(R.id.attackButton2)).setText(Choice2); // 四択の選択肢2をボタンに表示
+        ((Button) findViewById(R.id.attackButton3)).setText(Choice3); // 四択の選択肢3をボタンに表示
+        ((Button) findViewById(R.id.attackButton4)).setText(Choice4); // 四択の選択肢4をボタンに表示
     }
 
     // onPauseが呼ばれたら効果音を関するものは全て開放する
@@ -150,19 +149,25 @@ public class NormalGame extends AppCompatActivity {
             DatabaseHelper databaseHelper = new DatabaseHelper(this);
             SQLiteDatabase database = databaseHelper.getWritableDatabase();
             // データベース更新
-            int ret;
             try {
-                ret = database.update("MyTable", values, whereClause, new String[]{String.valueOf((Integer.parseInt(QuestionNo) + 1))});
-                QuestionNo = String.valueOf(Integer.parseInt(QuestionNo) + 1);
+                database.update("MyTable", values, whereClause, new String[]{String.valueOf((Integer.parseInt(QuestionNo) + 1))});
+                QuestionNo = String.valueOf(Integer.parseInt(QuestionNo) + 10);
+                sum++;
             } finally {
                 database.close();
             }
             Log.e("QuestionNo", QuestionNo);
-            if ((Integer.parseInt(QuestionNo) % 10) == 1) {
-                stageClear();
-            } else {
-                setQuestion();
-            }
+            chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+                @Override
+                public void onChronometerTick(Chronometer chronometer) {
+                    if (Integer.parseInt(QuestionNo) > 91) {
+                        stageClear();
+                    } else {
+                        setQuestion();
+                    }
+                    Log.e("Log :", String.valueOf(chronometer.getText()));
+                }
+            });
         } else {
             // 不正解の処理
             soundPool.play(soundId[1], 1.0f, 1.0f, 0, 0, 1.0f); //　不正解音を再生
@@ -171,6 +176,10 @@ public class NormalGame extends AppCompatActivity {
 
     private void stageClear() {
         System.out.println("10問目");
+
+        Intent intent = new Intent(TimeAttackGame.this, Result.class);
+        intent.putExtra("time", chronometer.getText());
+        startActivity(intent);
 
         finish();
     }

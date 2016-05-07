@@ -81,7 +81,6 @@ public class SectionSelect extends AppCompatActivity {
         Intent intent = new Intent(SectionSelect.this, RandomGame.class);
         // 選択されたステージをボタンのテキストから取得
         intent.putExtra("QuestionNo", ((Button) v).getText());
-        Log.e("Log", (String)((Button) v).getText());
         startActivity(intent);
     }
 }

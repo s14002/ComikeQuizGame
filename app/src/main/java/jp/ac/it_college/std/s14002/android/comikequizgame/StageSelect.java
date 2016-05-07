@@ -55,31 +55,12 @@ public class StageSelect extends AppCompatActivity {
             int viewId = getResources().getIdentifier(resViewName, "id", getPackageName());
             Button button = (Button)findViewById(viewId);
             // Clearの値によって処理を分ける
-            if (i == 1) {
-                button.setText("1");
-            } else if (i == 2) {
-                button.setText("11");
-            } else if (i == 3) {
-                button.setText("21");
-            } else if (i == 4) {
-                button.setText("31");
-            } else if (i == 5){
-                button.setText("41");
-            } else if (i == 6) {
-                button.setText("51");
-            } else if (i == 7) {
-                button.setText("61");
-            } else if (i == 8) {
-                button.setText("71");
-            } else if (i == 9) {
-                button.setText("81");
-            } else if (i == 10) {
-                button.setText("91");
-            }
+            button.setText(String.valueOf(i)); // ボタンテキストに問題番号を表示
             button.setTextColor(0xff33ffcc); //テキストの色
             button.setBackgroundColor(0xffffffff); // ボタンの色
             button.setTextSize(50); // テキストの文字のサイズ
             button.setEnabled(true); // ボタン選択可能にする
+
         }
 
     }

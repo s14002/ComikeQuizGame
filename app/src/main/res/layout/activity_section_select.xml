@@ -16,6 +16,7 @@
         android:textSize="30dp"
         android:textColor="#FFFFFF"
         android:background="#FF9100"
+        android:textStyle="bold"
         android:gravity="center_vertical|center_horizontal" />
 
     <LinearLayout
@@ -31,6 +32,7 @@
             android:id="@+id/button1"
             android:layout_weight="1"
             android:layout_margin="6dp"
+            android:textStyle="bold"
             android:onClick="onClick" />
 
         <Button
@@ -39,6 +41,7 @@
             android:id="@+id/button2"
             android:layout_weight="1"
             android:layout_margin="6dp"
+            android:textStyle="bold"
             android:onClick="onClick" />
     </LinearLayout>
 
@@ -55,6 +58,7 @@
             android:id="@+id/button3"
             android:layout_weight="1"
             android:layout_margin="6dp"
+            android:textStyle="bold"
             android:onClick="onClick" />
 
         <Button
@@ -63,6 +67,7 @@
             android:id="@+id/button4"
             android:layout_weight="1"
             android:layout_margin="6dp"
+            android:textStyle="bold"
             android:onClick="onClick" />
     </LinearLayout>
 
@@ -79,6 +84,7 @@
             android:id="@+id/button5"
             android:layout_weight="1"
             android:layout_margin="6dp"
+            android:textStyle="bold"
             android:onClick="onClick" />
 
         <Button
@@ -87,7 +93,8 @@
             android:id="@+id/button6"
             android:layout_weight="1"
             android:layout_margin="6dp"
+            android:textStyle="bold"
             android:onClick="onClick" />
     </LinearLayout>
 
-   </LinearLayout>
+</LinearLayout>
